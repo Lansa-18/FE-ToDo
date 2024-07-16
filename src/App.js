@@ -10,7 +10,7 @@ import iconCross from "./images/icon-cross.svg";
 export default function App() {
   const [inpValue, setInpValue] = useState("");
   const [todoList, setTodoList] = useState([]);
-  const [isCompleted, setIsCompleted] = useState(false);
+
 
   const inputEl = useRef(null);
 
@@ -18,17 +18,23 @@ export default function App() {
     setTodoList((todoArr) => [
       ...todoArr,
       {
+        id: Date.now(),
         text: inpValue,
-        completed: isCompleted,
+        completed: false,
       },
     ]);
     setInpValue("");
     inputEl.current.focus();
   }
 
-  function onHandleComplete() {
-    setIsCompleted(s => !s);
+  function onHandleCreateTodo() {
+
   }
+
+
+  // function onHandleComplete() {
+  //   setIsCompleted(s => !s);
+  // }
 
   useKey("Enter", onHandleAddTodo);
 
@@ -51,7 +57,7 @@ export default function App() {
           inpValue={inpValue}
           onSetValue={setInpValue}
         />
-        <ToDoItems isCompleted={isCompleted} onSetCompleted={onHandleComplete} todoList={todoList} />
+        <ToDoItems todoList={todoList} setTodoList={setTodoList} />
       </main>
     </div>
   );

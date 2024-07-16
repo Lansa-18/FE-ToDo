@@ -1,14 +1,19 @@
 import ToDo from "./ToDo";
 
-export default function ToDoItems({ todoList, isCompleted, onSetCompleted }) {
+export default function ToDoItems({ todoList, isCompleted, setTodoList }) {
+  function onHandleCompleteTodo(id) {
+      setTodoList(todoList => todoList.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
+      console.log(todoList);
+  }
+
   return (
     <>
       {todoList?.map((todo) => (
         <ToDo
-          key={todo.text}
+          key={todo.id}
           text={todo.text}
-          isCompleted={isCompleted}
-          onSetCompleted={onSetCompleted}
+          isCompleted={todo.completed}
+          onSetCompleted={() => onHandleCompleteTodo(todo.id)}
         />
       ))}
       <section className="bg-very-dark-desaturated-blue flex justify-between items-center text-[.8rem] text-dark-grayish-blue py-4 px-5">
