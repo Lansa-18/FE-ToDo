@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import { useKey } from "./useKey";
+import Input from "./components/Input";
+import ToDoItems from "./components/ToDoItems";
 import iconCheck from "./images/icon-check.svg";
 import iconSun from "./images/icon-sun.svg";
 import iconMoon from "./images/icon-moon.svg";
@@ -24,6 +26,10 @@ export default function App() {
     inputEl.current.focus();
   }
 
+  function onHandleComplete() {
+    setIsCompleted(s => !s);
+  }
+
   useKey("Enter", onHandleAddTodo);
 
   return (
@@ -40,62 +46,16 @@ export default function App() {
         </div>
 
         <Input
-          inputEl = {inputEl}
+          inputEl={inputEl}
           onAddTodo={onHandleAddTodo}
           inpValue={inpValue}
           onSetValue={setInpValue}
         />
-        <ToDoItems todoList={todoList} />
+        <ToDoItems isCompleted={isCompleted} onSetCompleted={onHandleComplete} todoList={todoList} />
       </main>
     </div>
   );
 }
 
-function Input({ inpValue, onSetValue, onAddTodo, inputEl }) {
-  return (
-    <div className="bg-very-dark-desaturated-blue py-5 px-5 rounded-lg flex justify-between items-center mb-6">
-      <button
-        className="border border-very-dark-grayish-blue rounded-full h-6 w-6"
-        onClick={onAddTodo}
-      ></button>
-      <input
-        ref={inputEl}
-        type="text"
-        value={inpValue}
-        onChange={(e) => onSetValue(e.target.value)}
-        placeholder="Create a new todo..."
-        className="w-[90%] border border-none outline-none bg-inherit text-light-grayish-blue placeholder-light-grayish-blue placeholder-opacity-50"
-      ></input>
-    </div>
-  );
-}
 
-function ToDoItems({ todoList }) {
-  return (
-    <>
-      {todoList?.map((todo) => (
-        <ToDo key={todo.text} text={todo.text} />
-      ))}
-      <section className="bg-very-dark-desaturated-blue flex justify-between items-center text-[.8rem] text-dark-grayish-blue py-4 px-5">
-        <p className="cursor-pointer">X items left</p>
-        <div className="flex justify-between w-1/3">
-          <p className="cursor-pointer">All</p>
-          <p className="cursor-pointer">Active</p>
-          <p className="cursor-pointer">Completed</p>
-        </div>
-        <p className="cursor-pointer">Clear Completed</p>
-      </section>
-    </>
-  );
-}
 
-function ToDo({ text }) {
-  return (
-    <div className="border-b-[1px] border-very-dark-grayish-blue bg-very-dark-desaturated-blue py-5 px-5 flex justify-between items-center cursor-pointer">
-      <button className="border border-very-dark-grayish-blue rounded-full h-6 w-6"></button>
-      <div className="w-[90%] border border-none outline-none bg-inherit text-light-grayish-blue placeholder-light-grayish-blue placeholder-opacity-50">
-        {text}
-      </div>
-    </div>
-  );
-}
