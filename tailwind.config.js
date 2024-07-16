@@ -6,6 +6,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'bright-blue': 'hsl(220, 98%, 61%)',
+
         // DARK THEME
         'very-dark-blue': 'hsl(235, 21%, 11%)',
         'very-dark-desaturated-blue': 'hsl(235, 24%, 19%)',
