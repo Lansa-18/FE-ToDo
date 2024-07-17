@@ -15,7 +15,7 @@ export default function ToDo({
         }}
         className="border-none w-[92%] flex justify-between items-center cursor-pointer"
       >
-        <div className="flex justify-center items-center p-px bg-very-dark-grayish-blue hover:bg-check-background rounded-full ease-linear">
+        <div className="flex justify-center items-center p-px bg-very-dark-grayish-blue hover:bg-check-background rounded-full">
           <button
             className={
               isCompleted

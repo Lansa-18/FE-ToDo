@@ -12,7 +12,7 @@ export default function Input({ inpValue, onSetValue, onAddTodo, inputEl }) {
           value={inpValue}
           onChange={(e) => onSetValue(e.target.value)}
           placeholder="Create a new todo..."
-          className="w-full border border-none outline-none bg-inherit text-light-grayish-blue placeholder-light-grayish-blue placeholder-opacity-50"
+          className="w-full border border-none outline-none bg-inherit text-light-grayish-blue placeholder-light-grayish-blue placeholder-opacity-50 caret-bright-blue"
         ></input>
       </form>
     </div>
