@@ -1,10 +1,11 @@
 import ToDo from "./ToDo";
 
-export default function ToDoItems({ todoList, isCompleted, setTodoList }) {
+export default function ToDoItems({ todoList, setTodoList }) {
   function onHandleCompleteTodo(id) {
       setTodoList(todoList => todoList.map(todo => todo.id === id ? { ...todo, completed: !todo.completed } : todo));
-      console.log(todoList);
   }
+
+  
 
   return (
     <>

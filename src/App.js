@@ -2,7 +2,6 @@ import { useState, useRef } from "react";
 import { useKey } from "./useKey";
 import Input from "./components/Input";
 import ToDoItems from "./components/ToDoItems";
-import iconCheck from "./images/icon-check.svg";
 import iconSun from "./images/icon-sun.svg";
 import iconMoon from "./images/icon-moon.svg";
 import iconCross from "./images/icon-cross.svg";
@@ -10,8 +9,6 @@ import iconCross from "./images/icon-cross.svg";
 export default function App() {
   const [inpValue, setInpValue] = useState("");
   const [todoList, setTodoList] = useState([]);
-
-
   const inputEl = useRef(null);
 
   function onHandleAddTodo() {
@@ -26,15 +23,6 @@ export default function App() {
     setInpValue("");
     inputEl.current.focus();
   }
-
-  function onHandleCreateTodo() {
-
-  }
-
-
-  // function onHandleComplete() {
-  //   setIsCompleted(s => !s);
-  // }
 
   useKey("Enter", onHandleAddTodo);
 

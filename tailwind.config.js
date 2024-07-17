@@ -29,6 +29,7 @@ module.exports = {
       },
       backgroundImage: theme => ({
         'desktop-dark': "url(/src/images/bg-desktop-dark.jpg)",
+        'check-background': "linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
       }),
     },
   },
