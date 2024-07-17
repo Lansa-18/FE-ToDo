@@ -11,7 +11,9 @@ export default function App() {
   const [todoList, setTodoList] = useState([]);
   const inputEl = useRef(null);
 
-  function onHandleAddTodo() {
+  function handleAddTodo(e) {
+    e.preventDefault();
+
     setTodoList((todoArr) => [
       ...todoArr,
       {
@@ -24,7 +26,21 @@ export default function App() {
     inputEl.current.focus();
   }
 
-  useKey("Enter", onHandleAddTodo);
+  function toggleTodoCompletion(id) {
+    setTodoList((todoList) =>
+      todoList.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  }
+
+  function handleClearCompleted() {
+    setTodoList(todoList.filter((todo) => !todo.completed));
+  }
+
+  const todosLeft = todoList.filter((todo) => !todo.completed).length;
+
+  // useKey("Enter", () => inputEl.current.focus());
 
   return (
     <div className="flex flex-col h-screen font-josefin">
@@ -41,15 +57,18 @@ export default function App() {
 
         <Input
           inputEl={inputEl}
-          onAddTodo={onHandleAddTodo}
+          onAddTodo={handleAddTodo}
           inpValue={inpValue}
           onSetValue={setInpValue}
         />
-        <ToDoItems todoList={todoList} setTodoList={setTodoList} />
+        <ToDoItems
+          todosLeft={todosLeft}
+          todoList={todoList}
+          setTodoList={setTodoList}
+          onToggleTodoCompletion={toggleTodoCompletion}
+          onClearCompleted={handleClearCompleted}
+        />
       </main>
     </div>
   );
 }
-
-
-

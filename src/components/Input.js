@@ -5,14 +5,16 @@ export default function Input({ inpValue, onSetValue, onAddTodo, inputEl }) {
         className="border border-very-dark-grayish-blue rounded-full h-6 w-6"
         onClick={onAddTodo}
       ></button>
-      <input
-        ref={inputEl}
-        type="text"
-        value={inpValue}
-        onChange={(e) => onSetValue(e.target.value)}
-        placeholder="Create a new todo..."
-        className="w-[90%] border border-none outline-none bg-inherit text-light-grayish-blue placeholder-light-grayish-blue placeholder-opacity-50"
-      ></input>
+      <form className="w-[90%]" onSubmit={onAddTodo}>
+        <input
+          ref={inputEl}
+          type="text"
+          value={inpValue}
+          onChange={(e) => onSetValue(e.target.value)}
+          placeholder="Create a new todo..."
+          className="w-full border border-none outline-none bg-inherit text-light-grayish-blue placeholder-light-grayish-blue placeholder-opacity-50"
+        ></input>
+      </form>
     </div>
   );
 }
