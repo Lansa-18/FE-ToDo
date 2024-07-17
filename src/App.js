@@ -1,10 +1,8 @@
 import { useState, useRef } from "react";
-import { useKey } from "./useKey";
 import Input from "./components/Input";
 import ToDoItems from "./components/ToDoItems";
 import iconSun from "./images/icon-sun.svg";
 import iconMoon from "./images/icon-moon.svg";
-import iconCross from "./images/icon-cross.svg";
 
 export default function App() {
   const [inpValue, setInpValue] = useState("");
@@ -25,6 +23,11 @@ export default function App() {
     setInpValue("");
     inputEl.current.focus();
   }
+
+  function handleRemoveTodo(id) {
+    setTodoList((todoList) => todoList.filter((todo) => todo.id !== id));
+  }
+
 
   function toggleTodoCompletion(id) {
     setTodoList((todoList) =>
@@ -67,6 +70,7 @@ export default function App() {
           setTodoList={setTodoList}
           onToggleTodoCompletion={toggleTodoCompletion}
           onClearCompleted={handleClearCompleted}
+          onRemoveTodo={handleRemoveTodo}
         />
       </main>
     </div>
