@@ -31,7 +31,7 @@ export default function ToDoItems({
           onRemoveTodo={() => onRemoveTodo(todo.id)}
         />
       ))}
-      <section className="bg-very-dark-desaturated-blue flex justify-between items-center text-[.8rem] text-dark-grayish-blue py-4 px-5">
+      <section className="bg-very-light-gray dark:bg-very-dark-desaturated-blue flex justify-between items-center text-[.8rem] text-very-dark-grayish-blue dark:text-dark-grayish-blue py-4 px-5 shadow-lg">
         <p className="cursor-pointer hover:text-light-grayish-blue-hover">
           {todosLeft} items left
         </p>

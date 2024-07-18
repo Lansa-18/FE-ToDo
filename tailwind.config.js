@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
@@ -27,6 +28,7 @@ module.exports = {
       },
       backgroundImage: (theme) => ({
         "desktop-dark": "url(/src/images/bg-desktop-dark.jpg)",
+        "desktop-light": "url(/src/images/bg-desktop-light.jpg)",
         "check-background":
           "linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%))",
       }),
