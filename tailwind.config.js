@@ -20,8 +20,8 @@ module.exports = {
         "very-light-gray": "hsl(0, 0%, 98%)",
         "very-light-grayish-blue": "hsl(236, 33%, 92%)",
         "light-grayish-blue-lightmode": "hsl(233, 11%, 84%)",
-        "dark-greyish-blue-lightmode": "hsl(236, 9%, 61%)",
-        "very-dark-greyish-blue-lightmode": "hsl(235, 19%, 35%)",
+        "dark-grayish-blue-lightmode": "hsl(236, 9%, 61%)",
+        "very-dark-grayish-blue-lightmode": "hsl(235, 19%, 35%)",
       },
       fontFamily: {
         josefin: ["Josefin Sans", "sans-serif"],
