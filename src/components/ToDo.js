@@ -13,7 +13,7 @@ export default function ToDo({
         onClick={() => {
           onSetCompleted();
         }}
-        className="border-none w-[92%] flex justify-between items-center cursor-pointer"
+        className="border-none w-[92%] flex justify-between items-center cursor-pointer land-phone:gap-4"
       >
         <div className="flex justify-center items-center p-px bg-light-grayish-blue-lightmode dark:bg-very-dark-grayish-blue hover:bg-check-background rounded-full">
           <button

@@ -8,9 +8,10 @@ module.exports = {
         "big-desktop": { max: "87.499em" }, // 1400px
         laptop: { max: "80em" }, // 1280px
         "tab-land": { max: "74.999em" }, // 1200px
-        "custom-1100": { max: "68.749em" }, // 1100px
+        "custom-1050": { max: "65.624em" }, // 1050px
         "tab-port": { max: "61.999em" }, // 992px
         "custom-915": { max: "57.187em" }, // 915px
+        "custom-850": { max: "53.124em" }, // 850px
         "land-phone": { max: "47.999em" }, // 768px
         "custom-680": { max: "42.499em" }, // 680px
         phone: { max: "35.999em" }, // 576px
