@@ -1,9 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     extend: {
+      screens: {
+        "big-desktop": { max: "87.499em" }, // 1400px
+        laptop: { max: "80em" }, // 1280px
+        "tab-land": { max: "74.999em" }, // 1200px
+        "custom-1100": { max: "68.749em" }, // 1100px
+        "tab-port": { max: "61.999em" }, // 992px
+        "custom-915": { max: "57.187em" }, // 915px
+        "land-phone": { max: "47.999em" }, // 768px
+        "custom-680": { max: "42.499em" }, // 680px
+        phone: { max: "35.999em" }, // 576px
+      },
       colors: {
         "bright-blue": "hsl(220, 98%, 61%)",
 

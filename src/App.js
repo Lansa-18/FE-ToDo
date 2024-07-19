@@ -17,6 +17,8 @@ export default function App() {
   function handleAddTodo(e) {
     e.preventDefault();
 
+    if (!inpValue.trim()) return;
+
     setTodoList((todoArr) => [
       ...todoArr,
       {
@@ -54,9 +56,6 @@ export default function App() {
       document.documentElement.classList.remove("dark");
     }
   }, [isDarkMode]);
-
-
-  // useKey("Enter", () => inputEl.current.focus());
 
   return (
     <div className="flex flex-col h-screen font-josefin">
