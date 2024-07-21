@@ -58,16 +58,15 @@ export default function App() {
   }, [isDarkMode]);
 
   return (
-    <div className="flex flex-col h-screen font-josefin">
+    <div className="flex flex-col min-h-[100vh] font-josefin">
       <article
-        className='bg-desktop-light dark:bg-desktop-dark h-[40vh] bg-cover'
+        className='bg-desktop-light dark:bg-desktop-dark basis-[40vh] bg-cover'
       ></article>
       <article
-        className='dark:bg-very-dark-blue h-[60vh]'
+        className='dark:bg-very-dark-blue basis-[60vh] bg-repeat-y'
       ></article>
-      {/* laptop:min-w-[430px] land-phone:max-w-[380px] */}
 
-      <main className="h-2/5 w-1/3 absolute top-[10%] left-1/2 -translate-x-1/2 laptop:w-[40%] custom-1050:w-[43%] custom-915:w-[49%] custom-850:w-[51%] land-phone:w-[55%] phone:min-w-[360px]">
+      <main className="h-2/5 w-1/3 absolute top-[10%] left-1/2 -translate-x-1/2 laptop:w-[40%] custom-1050:w-[43%] custom-915:w-[49%] custom-850:w-[51%] land-phone:w-[55%] phone:w-[70%]">
         <div className="flex items-center justify-between mb-7">
           <h1 className="text-[2rem] text-light-grayish-blue tracking-widest font-bold">
             TODO

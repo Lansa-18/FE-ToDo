@@ -21,7 +21,7 @@ export default function ToDoItems({
   });
 
   return (
-    <div className="flex flex-col">
+    <div className="border flex flex-col shadow-lg max-h-[150%]">
       {filteredTodo?.map((todo) => (
         <ToDo
           key={todo.id}
