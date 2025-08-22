@@ -3,35 +3,49 @@ import iconMoon from "../images/icon-moon.svg";
 import { useEffect, useRef, useState } from "react";
 import Input from "../components/Input";
 import ToDoItems from "../components/ToDoItems";
-import type { TodoObj } from "../lib/types";
+import type { TodoObj, TodoObj2 } from "../lib/types";
 import "../index.css";
+import LogoutButton from "../components/LogoutButton";
+import axiosApi from "../lib/axionApi";
+import { useTodos } from "../hooks/useTodos";
 
 export default function HomePage() {
   const [inpValue, setInpValue] = useState("");
   const [todoList, setTodoList] = useState<TodoObj[]>([]);
   const [isDarkMode, setIsDarkMode] = useState(true);
   const inputEl = useRef<HTMLInputElement>(null!);
+  const { todos } = useTodos();
 
   function handleToggleColorMode() {
     setIsDarkMode((mode) => !mode);
   }
 
-  function handleAddTodo(
+  async function handleAddTodo(
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement>
   ) {
-    e.preventDefault();
+    // e.preventDefault();
 
-    if (!inpValue.trim()) return;
+    // if (!inpValue.trim()) return;
 
-    setTodoList((todoArr) => [
-      ...todoArr,
-      {
-        id: Date.now(),
-        text: inpValue,
-        completed: false,
-      },
-    ]);
-    setInpValue("");
+    // setTodoList((todoArr) => [
+    //   ...todoArr,
+    //   {
+    //     id: Date.now(),
+    //     text: inpValue,
+    //     completed: false,
+    //   },
+    // ]);
+    // setInpValue("");
+
+    try {
+      e.preventDefault();
+      const response = await axiosApi.post("/todos", { title: inpValue });
+      const { data } = response;
+
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
     inputEl.current.focus();
   }
 
@@ -40,10 +54,8 @@ export default function HomePage() {
   }
 
   function toggleTodoCompletion(id: number) {
-    setTodoList((todoList) =>
-      todoList.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+    todos?.map((todo) =>
+      todo.todoId === id ? { ...todo, completed: !todo.isCompleted } : todo
     );
   }
 
@@ -68,7 +80,9 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col min-h-[100vh] font-josefin body">
-      <article className="bg-desktop-light dark:bg-desktop-dark min-h-[40vh] bg-cover"></article>
+      <article className="bg-desktop-light dark:bg-desktop-dark min-h-[40vh] bg-cover relative">
+        <LogoutButton />
+      </article>
       <article className="dark:bg-very-dark-blue min-h-[60vh] bg-repeat-y"></article>
 
       <main className="w-1/3 absolute top-[10%] left-1/2 -translate-x-1/2 laptop:w-[40%] custom-1050:w-[43%] custom-915:w-[49%] custom-850:w-[51%] land-phone:w-[55%] phone:w-[70%]">
@@ -93,7 +107,7 @@ export default function HomePage() {
         />
         <ToDoItems
           todosLeft={todosLeft}
-          todoList={todoList}
+          todoList={todos || []}
           onToggleTodoCompletion={toggleTodoCompletion}
           onClearCompleted={handleClearCompleted}
           onRemoveTodo={handleRemoveTodo}

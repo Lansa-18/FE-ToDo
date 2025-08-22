@@ -26,8 +26,8 @@ export default function ToDo({
           <button
             className={
               isCompleted
-                ? "bg-check-background border border-light-grayish-blue-lightmode dark:border-very-dark-grayish-blue rounded-full h-6 w-6 flex items-center justify-center "
-                : "border border-transparent rounded-full h-6 w-6 flex items-center justify-center bg-very-light-gray dark:bg-very-dark-desaturated-blue"
+                ? "bg-check-background border border-light-grayish-blue-lightmode dark:border-very-dark-grayish-blue rounded-full p-1.5 flex items-center justify-center "
+                : "border border-transparent rounded-full p-2.5 flex items-center justify-center bg-very-light-gray dark:bg-very-dark-desaturated-blue"
             }
           >
             {isCompleted ? <img src={iconCheck} alt="check-icon"></img> : ""}

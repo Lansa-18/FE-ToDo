@@ -8,9 +8,16 @@ import {
   FormItem,
   FormMessage,
 } from "../components/ui/form";
+import { useState } from "react";
+import axiosApi from "../lib/axionApi";
+import { Link, useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
+    fullName: z
+      .string()
+      .min(1, "You need to enter your fullname")
+      .regex(/^[a-zA-Z\s]+$/, "Please enter only letters and spaces."),
     email: z
       .email("Please enter a valid email address")
       .min(1, "Email is required"),
@@ -31,18 +38,77 @@ const formSchema = z
 type FormValues = z.infer<typeof formSchema>;
 
 export default function Signup() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      fullName: "",
       email: "",
       password: "",
       confirmPassword: "",
     },
   });
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     console.log(values);
-    form.reset();
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await axiosApi.post("/auth/signup", {
+        fullName: values.fullName,
+        email: values.email,
+        password: values.password,
+      });
+
+      const { data } = response;
+
+      // Success
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      setMessage({
+        type: "success",
+        text: "Account created successfully! Redirecting...",
+      });
+
+      // Resetting the form
+      form.reset();
+
+      // Redirecting the user after 2s
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } catch (error: any) {
+      console.error("Signup error:", error);
+
+      // Handling different types of errors
+      let errorMessage = "Something went wrong. Please try again.";
+
+      if (error.response) {
+        // if server responds with a status error
+        errorMessage = error.response.data.error || "Server error occured.";
+      } else if (error.request) {
+        // If there is a network error
+        errorMessage = "Network error. Please check your connection.";
+      } else if (error.code === "ECONNABORTED") {
+        // Timeout Error
+        errorMessage = "Request timeout. Please try again";
+      }
+
+      setMessage({
+        type: "error",
+        text: errorMessage,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -53,6 +119,33 @@ export default function Signup() {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <h2 className="font-bold text-3xl">Sign Up</h2>
+
+          {/* Success / Error Message */}
+          {message && (
+            <div
+              className={`p-3 rounded-lg text-center ${message.type === "success" ? "bg-green-500/20 text-green-400 border border-green-500" : "bg-red-500/20 text-red-400 border border-red-500"}`}
+            >
+              {message.text}
+            </div>
+          )}
+
+          <FormField
+            control={form.control}
+            name="fullName"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <input
+                    className="w-full p-2 rounded-lg bg-transparent border outline-none"
+                    placeholder="Enter Your Full Name"
+                    type="text"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage className="text-red-500" />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}
@@ -103,14 +196,25 @@ export default function Signup() {
                     {...field}
                   />
                 </FormControl>
-                <FormMessage className="text-primary-red" />
+                <FormMessage className="text-red-500" />
               </FormItem>
             )}
           />
 
-          <button className="text-white border-blue-500 border p-2 rounded-lg w-[40%] self-center" type="submit">
-            Create your account
-          </button>
+          <article className="space-y-4 self-center">
+            <button
+              className="text-white border-blue-500 border p-2 rounded-lg w-full self-center"
+              type="submit"
+            >
+              {isLoading ? "Creating Account..." : "Create your account"}
+            </button>
+            <div className="text-sm">
+              Already have an account?{" "}
+              <Link className="text-blue-500" to="/auth/login">
+                login
+              </Link>
+            </div>
+          </article>
         </form>
       </Form>
     </section>

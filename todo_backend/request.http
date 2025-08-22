@@ -1,0 +1,33 @@
+### Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "olamideiyanda18@gmail.com",
+    "password": "AM2804Ce"
+}
+
+### Register 
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+
+}
+
+### Get Profile
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1NTY5NTEzNSwiZXhwIjoxNzU2Mjk5OTM1fQ.xTTiaXcdDebLvni0EqV31uWmCJnexcAwHlB6IXYnGyw
+
+### Get Todos
+GET http://localhost:3000/api/todos
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1NTg1MzM4NiwiZXhwIjoxNzU2NDU4MTg2fQ.IxXkUGiEkxc6pejVBNQlR0Q91C5E5ZM_2fV69G76pIA
+
+### Post Todos
+POST http://localhost:3000/api/todos
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc1NTg1MzM4NiwiZXhwIjoxNzU2NDU4MTg2fQ.IxXkUGiEkxc6pejVBNQlR0Q91C5E5ZM_2fV69G76pIA
+
+{
+    "title": "Finish working on the backend for the todo app."
+}

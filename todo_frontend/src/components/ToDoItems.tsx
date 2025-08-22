@@ -1,9 +1,9 @@
 import { useState } from "react";
 import ToDo from "./ToDo";
-import type { TodoObj } from "../lib/types";
+import type { TodoObj2 } from "../lib/types";
 
 interface ToDoItemsProps {
-  todoList: TodoObj[];
+  todoList: TodoObj2[];
   todosLeft: number;
   onToggleTodoCompletion: (id: number) => void;
   onClearCompleted: () => void;
@@ -24,8 +24,8 @@ export default function ToDoItems({
   }
 
   const filteredTodo = todoList.filter((todo) => {
-    if (activeFilter === "active") return !todo.completed;
-    if (activeFilter === "completed") return todo.completed;
+    if (activeFilter === "active") return !todo.isCompleted;
+    if (activeFilter === "completed") return todo.isCompleted;
     return todo;
   });
 
@@ -33,11 +33,11 @@ export default function ToDoItems({
     <div className=" flex flex-col shadow-lg">
       {filteredTodo?.map((todo) => (
         <ToDo
-          key={todo.id}
-          text={todo.text}
-          isCompleted={todo.completed}
-          onSetCompleted={() => onToggleTodoCompletion(todo.id)}
-          onRemoveTodo={() => onRemoveTodo(todo.id)}
+          key={todo.todoId}
+          text={todo.title}
+          isCompleted={todo.isCompleted}
+          onSetCompleted={() => onToggleTodoCompletion(todo.todoId)}
+          onRemoveTodo={() => onRemoveTodo(todo.todoId)}
         />
       ))}
 

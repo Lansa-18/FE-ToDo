@@ -3,16 +3,24 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .leading-zero {
   line-height: 0;
 }
 
-body{
+body {
   /* border: 1px solid white;
   overflow: hidden; */
 
   background-color: hsl(235, 21%, 11%);
+}
+
+.spinner-light {
+  color: #000;
+}
+
+.dark,
+.spinner-dark {
+  color: #fff;
 }
 
 @layer base {
@@ -70,4 +78,3 @@ body{
     --chart-5: 340 75% 55%;
   }
 }
-

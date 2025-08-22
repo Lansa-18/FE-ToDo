@@ -8,6 +8,9 @@ import {
   FormItem,
   FormMessage,
 } from "../components/ui/form";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import axiosApi from "../lib/axionApi";
 
 const formSchema = z.object({
   email: z
@@ -25,6 +28,13 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 
 export default function Login() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<{
+    type: "success" | "error";
+    text: string;
+  } | null>(null);
+
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,9 +43,38 @@ export default function Login() {
     },
   });
 
-  const onSubmit = (values: FormValues) => {
+  const onSubmit = async (values: FormValues) => {
     console.log(values);
-    form.reset();
+
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await axiosApi.post("/auth/login", {
+        email: values.email,
+        password: values.password,
+      });
+
+      const { data } = response;
+      console.log(data.user)
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // Resetting the form
+      form.reset();
+
+      // Navigating to the home page.
+      navigate("/");
+    } catch (error: any) {
+      console.error(error);
+      setMessage({
+        type: "error",
+        text: error.response?.data.error || "Login failed",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -46,6 +85,15 @@ export default function Login() {
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <h2 className="font-bold text-3xl">Log In</h2>
+
+          {/* Success / Error Message */}
+          {message && (
+            <div
+              className={`p-3 rounded-lg text-center ${message.type === "success" ? "bg-green-500/20 text-green-400 border border-green-500" : "bg-red-500/20 text-red-400 border border-red-500"}`}
+            >
+              {message.text}
+            </div>
+          )}
 
           <FormField
             control={form.control}
@@ -83,12 +131,20 @@ export default function Login() {
             )}
           />
 
-          <button
-            className="text-white border-blue-500 border p-2 rounded-lg w-[40%] self-center"
-            type="submit"
-          >
-            Login
-          </button>
+          <article className="self-center space-y-4">
+            <button
+              className="text-white border-blue-500 border p-2 rounded-lg w-full hover:scale-105 transition-all duration-300"
+              type="submit"
+            >
+              {isLoading ? "Logging in..." : "Login"}
+            </button>
+            <div className="text-sm">
+              Don't have an account?{" "}
+              <Link className="text-blue-400" to="/auth/signup">
+                Sign Up
+              </Link>
+            </div>
+          </article>
         </form>
       </Form>
     </section>
